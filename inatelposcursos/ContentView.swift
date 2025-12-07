@@ -63,37 +63,7 @@ struct HomeView: View {
                     TabView(selection: $viewModel.currentCourseIndex) {
                         ForEach(0..<viewModel.courses.count, id: \.self) { index in
                             NavigationLink(value: viewModel.courses[index]) {
-                                VStack(spacing: 20) {
-                                    Image(systemName: "laptopcomputer.and.iphone")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(height: 80)
-                                        .foregroundColor(appBlue)
-                                    
-                                    Text(viewModel.courses[index].name)
-                                        .font(.title3)
-                                        .bold()
-                                        .foregroundColor(.black)
-                                        .multilineTextAlignment(.center)
-                                        .padding(.horizontal)
-                                    
-                                    Text(viewModel.courses[index].description)
-                                        .font(.body)
-                                        .foregroundColor(.gray)
-                                        .multilineTextAlignment(.center)
-                                        .padding(.horizontal)
-                                    
-                                    Text("Toque para ver detalhes")
-                                        .font(.caption)
-                                        .foregroundColor(appBlue)
-                                        .padding(.top, 10)
-                                }
-                                .padding()
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .background(Color.white)
-                                .cornerRadius(20)
-                                .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
-                                .padding()
+                                CourseCardView(course: viewModel.courses[index], appBlue: appBlue)
                             }
                             .tag(index)
                         }
@@ -125,38 +95,7 @@ struct HomeView: View {
                 CourseDetailView(course: course, appBlue: appBlue)
             }
             .sheet(isPresented: $viewModel.showPaymentSheet) {
-                VStack {
-                    Text("Forma de Pagamento")
-                        .font(.title2)
-                        .bold()
-                        .padding(.top)
-                    
-                    Text("Escolha o parcelamento")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                    
-                    Picker("Parcelas", selection: $viewModel.selectedInstallmentIndex) {
-                        ForEach(0..<viewModel.pricingOptions.count, id: \.self) { index in
-                            Text(viewModel.pricingOptions[index].label)
-                        }
-                    }
-                    .pickerStyle(.wheel)
-                    .labelsHidden()
-                    
-                    Button(action: {
-                        viewModel.confirmEnrollment()
-                    }) {
-                        Text("Confirmar Inscrição")
-                            .font(.headline)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(appBlue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    }
-                    .padding()
-                }
-                .presentationDetents([.height(400)])
+                PaymentSheetView(viewModel: viewModel, appBlue: appBlue)
             }
             .alert("Sucesso", isPresented: $viewModel.showSuccessAlert) {
                 Button("OK", role: .cancel) { }
