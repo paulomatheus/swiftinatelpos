@@ -37,7 +37,7 @@ struct MockData {
             subjects: mobileCloudSubjects
         ),
         Course(
-            name: "ENGENHARIA DE SOFTWARE",
+            name: "ENGENHARIA DE SOFTWARE APLICADA",
             description: "Arquitetura, padrões e desenvolvimento ágil.",
             detailedDescription: "Aprofunde-se em metodologias ágeis, arquitetura de microsserviços e padrões de projeto para criar softwares robustos e escaláveis.",
             subjects: []
