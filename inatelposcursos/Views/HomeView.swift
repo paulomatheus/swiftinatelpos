@@ -1,42 +1,11 @@
 //
-//  ContentView.swift
+//  HomeView.swift
 //  inatelposcursos
 //
-//  Created by Paulo Matheus on 06/12/25.
+//  Created by Paulo Matheus on 07/12/25.
 //
 
 import SwiftUI
-
-struct InstallmentOption: Hashable {
-    let count: Int
-    let value: String
-    
-    var label: String {
-        return "\(count)x \(value)"
-    }
-}
-
-
-struct ContentView: View {
-    let appBlue = Color(red: 0/255, green: 102/255, blue: 204/255)
-    @State private var viewModel = HomeViewModel()
-
-    var body: some View {
-        TabView {
-            HomeView(viewModel: viewModel, appBlue: appBlue)
-                .tabItem {
-                    Label("Início", systemImage: "house.fill")
-                }
-            
-            MyCoursesView(viewModel: viewModel, appBlue: appBlue)
-                .tabItem {
-                    Label("Meus Cursos", systemImage: "books.vertical.fill")
-                }
-        }
-        .accentColor(appBlue)
-    }
-}
-
 
 struct HomeView: View {
     @Bindable var viewModel: HomeViewModel
@@ -74,7 +43,6 @@ struct HomeView: View {
                     VStack {
                         let currentCourse = viewModel.currentCourse
                         let isEnrolled = viewModel.isCurrentCourseEnrolled
-
                         Button(action: {
                             viewModel.openPaymentSheet(for: currentCourse)
                         }) {
@@ -104,8 +72,4 @@ struct HomeView: View {
             }
         }
     }
-}
-
-#Preview {
-    ContentView()
 }
