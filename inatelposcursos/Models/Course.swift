@@ -12,4 +12,5 @@ struct Course: Identifiable, Hashable {
     let name: String
     let description: String
     let detailedDescription: String
+    let subjects: [Subject]
 }

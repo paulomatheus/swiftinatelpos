@@ -16,6 +16,19 @@ class HomeViewModel {
     var showSuccessAlert = false
     var selectedInstallmentIndex = 0
     var currentCourseIndex = 0
+    var completedSubjectIDs: Set<UUID> = []
+
+    func toggleSubjectCompletion(_ subjectID: UUID) {
+        if completedSubjectIDs.contains(subjectID) {
+            completedSubjectIDs.remove(subjectID)
+        } else {
+            completedSubjectIDs.insert(subjectID)
+        }
+    }
+
+    func isSubjectCompleted(_ subjectID: UUID) -> Bool {
+        return completedSubjectIDs.contains(subjectID)
+    }
     
     let courses = MockData.courses
     let pricingOptions = MockData.pricingOptions

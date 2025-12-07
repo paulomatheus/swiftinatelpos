@@ -92,7 +92,7 @@ struct HomeView: View {
                 }
             }
             .navigationDestination(for: Course.self) { course in
-                CourseDetailView(course: course, appBlue: appBlue)
+                CourseDetailView(course: course, viewModel: viewModel, appBlue: appBlue)
             }
             .sheet(isPresented: $viewModel.showPaymentSheet) {
                 PaymentSheetView(viewModel: viewModel, appBlue: appBlue)
@@ -158,50 +158,6 @@ struct MyCoursesView: View {
     }
 }
 
-struct CourseDetailView: View {
-    let course: Course
-    let appBlue: Color
-    
-    var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                HStack {
-                    Spacer()
-                    Image(systemName: "laptopcomputer.and.iphone")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(height: 120)
-                        .foregroundColor(appBlue)
-                    Spacer()
-                }
-                .padding(.top, 40)
-                
-                Text(course.name)
-                    .font(.title)
-                    .bold()
-                    .foregroundColor(appBlue)
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity)
-                
-                Divider()
-                
-                Text("Sobre o Curso")
-                    .font(.title2)
-                    .bold()
-                
-                Text(course.detailedDescription)
-                    .font(.body)
-                    .foregroundColor(.gray)
-                    .lineSpacing(5)
-                
-                Spacer()
-            }
-            .padding()
-        }
-        .navigationTitle("Detalhes")
-        .navigationBarTitleDisplayMode(.inline)
-    }
-}
 
 #Preview {
     ContentView()
