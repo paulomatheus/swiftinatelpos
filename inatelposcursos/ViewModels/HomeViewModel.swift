@@ -1,0 +1,50 @@
+//
+//  HomeViewModels.swift
+//  inatelposcursos
+//
+//  Created by Paulo Matheus on 07/12/25.
+//
+
+import Foundation
+import SwiftUI
+
+@Observable
+class HomeViewModel {
+    var enrolledCourseIDs: Set<UUID> = []
+    var selectedCourse: Course?
+    var showPaymentSheet = false
+    var showSuccessAlert = false
+    var selectedInstallmentIndex = 0
+    var currentCourseIndex = 0
+    
+    let courses = MockData.courses
+    let pricingOptions = MockData.pricingOptions
+    
+    var currentCourse: Course {
+        return courses[currentCourseIndex]
+    }
+    
+    var isCurrentCourseEnrolled: Bool {
+        return enrolledCourseIDs.contains(currentCourse.id)
+    }
+    
+    func openPaymentSheet(for course: Course) {
+        selectedCourse = course
+        showPaymentSheet = true
+    }
+    
+    func confirmEnrollment() {
+        guard let course = selectedCourse else { return }
+        enrolledCourseIDs.insert(course.id)
+        showPaymentSheet = false
+        
+        // Delay para mostrar o alert após fechar o sheet
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.showSuccessAlert = true
+        }
+    }
+    
+    func getEnrolledCourses() -> [Course] {
+        return courses.filter { enrolledCourseIDs.contains($0.id) }
+    }
+}

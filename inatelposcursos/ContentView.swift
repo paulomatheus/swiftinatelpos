@@ -19,17 +19,16 @@ struct InstallmentOption: Hashable {
 
 struct ContentView: View {
     let appBlue = Color(red: 0/255, green: 102/255, blue: 204/255)
-    
-    @State private var enrolledCourseIDs: Set<UUID> = []
-    
+    @State private var viewModel = HomeViewModel()
+
     var body: some View {
         TabView {
-            HomeView(enrolledCourseIDs: $enrolledCourseIDs, appBlue: appBlue)
+            HomeView(viewModel: viewModel, appBlue: appBlue)
                 .tabItem {
                     Label("Início", systemImage: "house.fill")
                 }
             
-            MyCoursesView(enrolledCourseIDs: enrolledCourseIDs, appBlue: appBlue)
+            MyCoursesView(viewModel: viewModel, appBlue: appBlue)
                 .tabItem {
                     Label("Meus Cursos", systemImage: "books.vertical.fill")
                 }
@@ -40,16 +39,8 @@ struct ContentView: View {
 
 
 struct HomeView: View {
-    @Binding var enrolledCourseIDs: Set<UUID>
+    @Bindable var viewModel: HomeViewModel
     let appBlue: Color
-    let courses = MockData.courses
-    let pricingOptions = MockData.pricingOptions
-    
-    @State private var selectedCourse: Course?
-    @State private var showPaymentSheet = false
-    @State private var showSuccessAlert = false
-    @State private var selectedInstallmentIndex = 0
-    @State private var currentCourseIndex = 0
     
     var body: some View {
         NavigationStack {
@@ -69,9 +60,9 @@ struct HomeView: View {
                     }
                     .padding()
                     
-                    TabView(selection: $currentCourseIndex) {
-                        ForEach(0..<courses.count, id: \.self) { index in
-                            NavigationLink(value: courses[index]) {
+                    TabView(selection: $viewModel.currentCourseIndex) {
+                        ForEach(0..<viewModel.courses.count, id: \.self) { index in
+                            NavigationLink(value: viewModel.courses[index]) {
                                 VStack(spacing: 20) {
                                     Image(systemName: "laptopcomputer.and.iphone")
                                         .resizable()
@@ -79,14 +70,14 @@ struct HomeView: View {
                                         .frame(height: 80)
                                         .foregroundColor(appBlue)
                                     
-                                    Text(courses[index].name)
+                                    Text(viewModel.courses[index].name)
                                         .font(.title3)
                                         .bold()
                                         .foregroundColor(.black)
                                         .multilineTextAlignment(.center)
                                         .padding(.horizontal)
                                     
-                                    Text(courses[index].description)
+                                    Text(viewModel.courses[index].description)
                                         .font(.body)
                                         .foregroundColor(.gray)
                                         .multilineTextAlignment(.center)
@@ -111,12 +102,11 @@ struct HomeView: View {
                     .indexViewStyle(.page(backgroundDisplayMode: .always))
                     
                     VStack {
-                        let currentCourse = courses[currentCourseIndex]
-                        let isEnrolled = enrolledCourseIDs.contains(currentCourse.id)
-                        
+                        let currentCourse = viewModel.currentCourse
+                        let isEnrolled = viewModel.isCurrentCourseEnrolled
+
                         Button(action: {
-                            selectedCourse = currentCourse
-                            showPaymentSheet = true
+                            viewModel.openPaymentSheet(for: currentCourse)
                         }) {
                             Text(isEnrolled ? "Já Matriculado" : "Inscreva-se")
                                 .font(.headline)
@@ -134,7 +124,7 @@ struct HomeView: View {
             .navigationDestination(for: Course.self) { course in
                 CourseDetailView(course: course, appBlue: appBlue)
             }
-            .sheet(isPresented: $showPaymentSheet) {
+            .sheet(isPresented: $viewModel.showPaymentSheet) {
                 VStack {
                     Text("Forma de Pagamento")
                         .font(.title2)
@@ -145,22 +135,16 @@ struct HomeView: View {
                         .font(.subheadline)
                         .foregroundColor(.gray)
                     
-                    Picker("Parcelas", selection: $selectedInstallmentIndex) {
-                        ForEach(0..<pricingOptions.count, id: \.self) { index in
-                            Text(pricingOptions[index].label)
+                    Picker("Parcelas", selection: $viewModel.selectedInstallmentIndex) {
+                        ForEach(0..<viewModel.pricingOptions.count, id: \.self) { index in
+                            Text(viewModel.pricingOptions[index].label)
                         }
                     }
                     .pickerStyle(.wheel)
                     .labelsHidden()
                     
                     Button(action: {
-                        if let course = selectedCourse {
-                            enrolledCourseIDs.insert(course.id)
-                            showPaymentSheet = false
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                showSuccessAlert = true
-                            }
-                        }
+                        viewModel.confirmEnrollment()
                     }) {
                         Text("Confirmar Inscrição")
                             .font(.headline)
@@ -174,7 +158,7 @@ struct HomeView: View {
                 }
                 .presentationDetents([.height(400)])
             }
-            .alert("Sucesso", isPresented: $showSuccessAlert) {
+            .alert("Sucesso", isPresented: $viewModel.showSuccessAlert) {
                 Button("OK", role: .cancel) { }
             } message: {
                 Text("Sua inscrição foi realizada com sucesso!")
@@ -184,13 +168,11 @@ struct HomeView: View {
 }
 
 struct MyCoursesView: View {
-    let enrolledCourseIDs: Set<UUID>
+    var viewModel: HomeViewModel
     let appBlue: Color
     
-    let allCourses = MockData.courses
-    
     var myCourses: [Course] {
-        return allCourses.filter { enrolledCourseIDs.contains($0.id) }
+        return viewModel.getEnrolledCourses()
     }
     
     var body: some View {
