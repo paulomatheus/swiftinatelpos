@@ -79,7 +79,73 @@ struct ContentView: View {
                 }
                 .tabViewStyle(.page(indexDisplayMode: .always))
                 .indexViewStyle(.page(backgroundDisplayMode: .always))
+                
+                VStack {
+                    let currentCourse = courses[currentCourseIndex]
+                    let isEnrolled = enrolledCourseIDs.contains(currentCourse.id)
+                    
+                    Button(action: {
+                        selectedCourse = currentCourse
+                        selectedInstallments = 1
+                        showPaymentSheet = true
+                    }) {
+                        Text(isEnrolled ? "Já Matriculado" : "Inscreva-se")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(isEnrolled ? Color.gray : appBlue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    .disabled(isEnrolled)
+                    .padding()
+                }
             }
+        }
+        .sheet(isPresented: $showPaymentSheet) {
+            VStack {
+                Text("Forma de Pagamento")
+                    .font(.title2)
+                    .bold()
+                    .padding(.top)
+                
+                Text("Escolha o parcelamento")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                
+                Picker("Parcelas", selection: $selectedInstallments) {
+                    ForEach(1...24, id: \.self) { number in
+                        Text("\(number)x")
+                    }
+                }
+                .pickerStyle(.wheel)
+                .labelsHidden()
+                
+                Button(action: {
+                    if let course = selectedCourse {
+                        enrolledCourseIDs.insert(course.id)
+                        showPaymentSheet = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            showSuccessAlert = true
+                        }
+                    }
+                }) {
+                    Text("Confirmar Inscrição")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(appBlue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .padding()
+            }
+            .presentationDetents([.height(400)])
+        }
+        .alert("Sucesso", isPresented: $showSuccessAlert) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text("Sua inscrição foi realizada com sucesso!")
         }
     }
 }
