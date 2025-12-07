@@ -106,59 +106,6 @@ struct HomeView: View {
     }
 }
 
-struct MyCoursesView: View {
-    var viewModel: HomeViewModel
-    let appBlue: Color
-    
-    var myCourses: [Course] {
-        return viewModel.getEnrolledCourses()
-    }
-    
-    var body: some View {
-        NavigationStack {
-            VStack {
-                if myCourses.isEmpty {
-                    VStack(spacing: 20) {
-                        Image(systemName: "books.vertical")
-                            .font(.system(size: 60))
-                            .foregroundColor(.gray.opacity(0.5))
-                        Text("Você ainda não possui cursos.")
-                            .font(.title3)
-                            .foregroundColor(.gray)
-                        Text("Visite a aba Início para se matricular.")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                    }
-                } else {
-                    List(myCourses) { course in
-                        HStack {
-                            Image(systemName: "checkmark.seal.fill")
-                                .foregroundColor(appBlue)
-                                .font(.largeTitle)
-                            
-                            VStack(alignment: .leading) {
-                                Text(course.name)
-                                    .font(.headline)
-                                    .foregroundColor(.black)
-                                Text("Em andamento")
-                                    .font(.caption)
-                                    .foregroundColor(.gray)
-                            }
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(.gray)
-                        }
-                        .padding(.vertical, 8)
-                    }
-                    .listStyle(.plain)
-                }
-            }
-            .navigationTitle("Meus Cursos")
-        }
-    }
-}
-
-
 #Preview {
     ContentView()
 }
