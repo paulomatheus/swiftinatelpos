@@ -23,9 +23,32 @@ struct InstallmentOption: Hashable {
     }
 }
 
+
 struct ContentView: View {
     let appBlue = Color(red: 0/255, green: 102/255, blue: 204/255)
-    let appWhite = Color(red: 255/255, green: 255/255, blue: 255/255)
+    
+    @State private var enrolledCourseIDs: Set<UUID> = []
+    
+    var body: some View {
+        TabView {
+            HomeView(enrolledCourseIDs: $enrolledCourseIDs, appBlue: appBlue)
+                .tabItem {
+                    Label("Início", systemImage: "house.fill")
+                }
+            
+            MyCoursesView(enrolledCourseIDs: enrolledCourseIDs, appBlue: appBlue)
+                .tabItem {
+                    Label("Meus Cursos", systemImage: "books.vertical.fill")
+                }
+        }
+        .accentColor(appBlue)
+    }
+}
+
+
+struct HomeView: View {
+    @Binding var enrolledCourseIDs: Set<UUID>
+    let appBlue: Color
     
     let courses = [
         Course(name: "ENGENHARIA DE SOFTWARE", description: "Arquitetura, padrões e desenvolvimento ágil.", detailedDescription: "Aprofunde-se em metodologias ágeis, arquitetura de microsserviços e padrões de projeto para criar softwares robustos e escaláveis."),
@@ -46,7 +69,6 @@ struct ContentView: View {
         InstallmentOption(count: 24, value: "R$ 1.099,00")
     ].sorted { $0.count > $1.count }
     
-    @State private var enrolledCourseIDs: Set<UUID> = []
     @State private var selectedCourse: Course?
     @State private var showPaymentSheet = false
     @State private var showSuccessAlert = false
@@ -56,7 +78,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                appWhite.ignoresSafeArea()
+                Color.white.ignoresSafeArea()
                 
                 VStack {
                     HStack {
@@ -185,6 +207,68 @@ struct ContentView: View {
     }
 }
 
+struct MyCoursesView: View {
+    let enrolledCourseIDs: Set<UUID>
+    let appBlue: Color
+    
+    let allCourses = [
+        Course(name: "ENGENHARIA DE SOFTWARE", description: "Arquitetura, padrões e desenvolvimento ágil.", detailedDescription: "Aprofunde-se em metodologias ágeis..."),
+        Course(name: "MBA EM GESTÃO EM NEGÓCIOS TECNOLÓGICOS", description: "Liderança e inovação no mercado tech.", detailedDescription: "Desenvolva habilidades de liderança..."),
+        Course(name: "TECNOLOGIAS EMERGENTES PARA A INDÚSTRIA", description: "IoT, IA e Indústria 4.0.", detailedDescription: "Explore o impacto da Internet das Coisas..."),
+        Course(name: "ENGENHARIA DE REDES E SISTEMAS DE TELECOMUNICAÇÕES", description: "Infraestrutura e protocolos de comunicação.", detailedDescription: "Estudo avançado de protocolos..."),
+        Course(name: "REDES COMUNICAÇÕES MÓVEIS 5G", description: "A revolução da conectividade móvel.", detailedDescription: "Compreenda a arquitetura..."),
+        Course(name: "TRANSFORMAÇÃO DIGITAL", description: "Digitalização de processos e cultura.", detailedDescription: "Estratégias para digitalizar processos..."),
+        Course(name: "TECNOLOGIAS DISRUPTIVAS E GESTÃO EM SAÚDE", description: "Inovação tecnológica aplicada à medicina.", detailedDescription: "Aplicação de Big Data...")
+    ]
+    
+    var myCourses: [Course] {
+        return allCourses.filter { enrolledCourseIDs.contains($0.id) }
+    }
+    
+    var body: some View {
+        NavigationStack {
+            VStack {
+                if myCourses.isEmpty {
+                    VStack(spacing: 20) {
+                        Image(systemName: "books.vertical")
+                            .font(.system(size: 60))
+                            .foregroundColor(.gray.opacity(0.5))
+                        Text("Você ainda não possui cursos.")
+                            .font(.title3)
+                            .foregroundColor(.gray)
+                        Text("Visite a aba Início para se matricular.")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                    }
+                } else {
+                    List(myCourses) { course in
+                        HStack {
+                            Image(systemName: "checkmark.seal.fill")
+                                .foregroundColor(appBlue)
+                                .font(.largeTitle)
+                            
+                            VStack(alignment: .leading) {
+                                Text(course.name)
+                                    .font(.headline)
+                                    .foregroundColor(.black)
+                                Text("Em andamento")
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                            }
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(.gray)
+                        }
+                        .padding(.vertical, 8)
+                    }
+                    .listStyle(.plain)
+                }
+            }
+            .navigationTitle("Meus Cursos")
+        }
+    }
+}
+
 struct CourseDetailView: View {
     let course: Course
     let appBlue: Color
@@ -229,6 +313,7 @@ struct CourseDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 }
+
 #Preview {
     ContentView()
 }
