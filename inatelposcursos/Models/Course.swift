@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct Course: Identifiable, Hashable {
+    let id = UUID()
+    let name: String
+    let description: String
+    let detailedDescription: String
+}

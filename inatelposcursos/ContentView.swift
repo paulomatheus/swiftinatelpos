@@ -7,13 +7,6 @@
 
 import SwiftUI
 
-struct Course: Identifiable, Hashable {
-    let id = UUID()
-    let name: String
-    let description: String
-    let detailedDescription: String
-}
-
 struct InstallmentOption: Hashable {
     let count: Int
     let value: String
