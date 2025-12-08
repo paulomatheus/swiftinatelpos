@@ -10,6 +10,7 @@ import SwiftUI
 struct MyCoursesView: View {
     var viewModel: HomeViewModel
     let appBlue: Color
+    let logoBlue: Color 
     
     var myCourses: [Course] {
         return viewModel.getEnrolledCourses()
@@ -53,7 +54,7 @@ struct MyCoursesView: View {
                     }
                     .listStyle(.plain)
                     .navigationDestination(for: Course.self) { course in
-                        CourseDetailView(course: course, viewModel: viewModel, appBlue: appBlue)
+                        CourseDetailView(course: course, viewModel: viewModel, appBlue: appBlue, logoBlue: logoBlue)
                     }
                 }
             }

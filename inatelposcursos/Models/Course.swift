@@ -15,4 +15,5 @@ struct Course: Identifiable, Hashable {
     let subjects: [Subject]
     let workload: Int
     let pricingOptions: [InstallmentOption]
+    let logoName: String?  //nil = usar ícone do sistema
 }

@@ -11,6 +11,7 @@ struct CourseDetailView: View {
     let course: Course
     @Bindable var viewModel: HomeViewModel
     let appBlue: Color
+    let logoBlue: Color
     
     var body: some View {
         VStack(spacing: 0) {
@@ -18,11 +19,7 @@ struct CourseDetailView: View {
                 VStack(alignment: .leading, spacing: 20) {
                     HStack {
                         Spacer()
-                        Image(systemName: "laptopcomputer.and.iphone")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(height: 120)
-                            .foregroundColor(appBlue)
+                        CourseLogoView(course: course, size: 120, color: appBlue)
                         Spacer()
                     }
                     .padding(.top, 40)

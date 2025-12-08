@@ -7,17 +7,16 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct CourseCardView: View {
     let course: Course
     let appBlue: Color
+    let logoBlue: Color 
     
     var body: some View {
         VStack(spacing: 20) {
-            Image(systemName: "laptopcomputer.and.iphone")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(height: 80)
-                .foregroundColor(appBlue)
+            CourseLogoView(course: course, size: 80, color: appBlue)
             
             Text(course.name)
                 .font(.title3)

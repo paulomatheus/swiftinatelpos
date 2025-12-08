@@ -246,15 +246,17 @@ struct MockData {
             detailedDescription: "Domine o desenvolvimento de aplicações móveis nativas e híbridas, integradas com cloud computing, web services e as principais plataformas do mercado.",
             subjects: mobileCloudSubjects,
             workload: 368,
-            pricingOptions: standardPricing
+            pricingOptions: standardPricing,
+            logoName: nil
         ),
         Course(
-            name: "ENGENHARIA DE SOFTWARE APLICADA",
+            name: "ENGENHARIA DE SOFTWARE",
             description: "Arquitetura, padrões e desenvolvimento ágil.",
             detailedDescription: "Aprofunde-se em metodologias ágeis, arquitetura de microsserviços e padrões de projeto para criar softwares robustos e escaláveis.",
             subjects: softwareEngineeringSubjects,
             workload: 368,
-            pricingOptions: standardPricing
+            pricingOptions: standardPricing,
+            logoName: "logo_engenharia-de-software-online"
         ),
         Course(
             name: "MBA EM GESTÃO EM NEGÓCIOS TECNOLÓGICOS",
@@ -262,7 +264,8 @@ struct MockData {
             detailedDescription: "Desenvolva habilidades de liderança estratégica, gestão de produtos digitais e inovação corporativa.",
             subjects: mbaTechBusinessSubjects,
             workload: 368,
-            pricingOptions: standardPricing
+            pricingOptions: standardPricing,
+            logoName: "logo_mba-gestao-empresarial-em-ambiente-tecnologico-online"
         ),
         Course(
             name: "TECNOLOGIAS EMERGENTES PARA A INDÚSTRIA",
@@ -270,7 +273,8 @@ struct MockData {
             detailedDescription: "Explore o impacto da Internet das Coisas, Inteligência Artificial e automação no cenário industrial moderno.",
             subjects: emergingTechIndustrySubjects,
             workload: 368,
-            pricingOptions: standardPricing
+            pricingOptions: standardPricing,
+            logoName: "logo_tecnologias-emergentes-para-a-industria-online"
         ),
         Course(
             name: "ENGENHARIA DE REDES E SISTEMAS DE TELECOMUNICAÇÕES",
@@ -278,7 +282,8 @@ struct MockData {
             detailedDescription: "Estudo avançado de protocolos de rede, fibra óptica e infraestrutura de telecomunicações.",
             subjects: networkEngineeringSubjects,
             workload: 368,
-            pricingOptions: standardPricing
+            pricingOptions: standardPricing,
+            logoName: "logo_engenharia-de-redes-e-sistemas-de-telecomunicacoes-online"
         ),
         Course(
             name: "REDES COMUNICAÇÕES MÓVEIS 5G",
@@ -286,7 +291,8 @@ struct MockData {
             detailedDescription: "Compreenda a arquitetura, latência e casos de uso da tecnologia 5G e seu impacto na sociedade.",
             subjects: fiveGSubjects,
             workload: 438,
-            pricingOptions: fiveGPricing
+            pricingOptions: fiveGPricing,
+            logoName: "logo_redes-5g-online"
         ),
         Course(
             name: "TRANSFORMAÇÃO DIGITAL",
@@ -294,7 +300,8 @@ struct MockData {
             detailedDescription: "Estratégias para digitalizar processos tradicionais e mudar a cultura organizacional para o digital.",
             subjects: digitalTransformationSubjects,
             workload: 360,
-            pricingOptions: digitalTransformationPricing
+            pricingOptions: digitalTransformationPricing,
+            logoName: "logo_transformacao-digital-online"
         ),
         Course(
             name: "TECNOLOGIAS DISRUPTIVAS E GESTÃO EM SAÚDE",
@@ -302,7 +309,8 @@ struct MockData {
             detailedDescription: "Aplicação de Big Data, Telemedicina e IA para otimizar a gestão e o atendimento na área da saúde.",
             subjects: disruptiveTechHealthSubjects,
             workload: 360,
-            pricingOptions: standardPricing
+            pricingOptions: standardPricing,
+            logoName: "logo_tecnologias-disruptivas-e-gestao-em-saude-hibrido"
         )
     ]
 }

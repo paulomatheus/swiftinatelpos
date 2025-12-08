@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @Bindable var viewModel: HomeViewModel
     let appBlue: Color
+    let logoBlue: Color
     
     var body: some View {
         NavigationStack {
@@ -32,7 +33,7 @@ struct HomeView: View {
                     TabView(selection: $viewModel.currentCourseIndex) {
                         ForEach(0..<viewModel.courses.count, id: \.self) { index in
                             NavigationLink(value: viewModel.courses[index]) {
-                                CourseCardView(course: viewModel.courses[index], appBlue: appBlue)
+                                CourseCardView(course: viewModel.courses[index], appBlue: appBlue, logoBlue: logoBlue)
                             }
                             .tag(index)
                         }
@@ -60,7 +61,7 @@ struct HomeView: View {
                 }
             }
             .navigationDestination(for: Course.self) { course in
-                CourseDetailView(course: course, viewModel: viewModel, appBlue: appBlue)
+                CourseDetailView(course: course, viewModel: viewModel, appBlue: appBlue, logoBlue: logoBlue)
             }
             .sheet(isPresented: $viewModel.showPaymentSheet) {
                 PaymentSheetView(viewModel: viewModel, appBlue: appBlue)
