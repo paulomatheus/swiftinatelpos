@@ -22,9 +22,11 @@ struct PaymentSheetView: View {
                 .font(.subheadline)
                 .foregroundColor(.gray)
             
+            let pricingOptions = viewModel.selectedCourse?.pricingOptions ?? []
+            
             Picker("Parcelas", selection: $viewModel.selectedInstallmentIndex) {
-                ForEach(0..<viewModel.pricingOptions.count, id: \.self) { index in
-                    Text(viewModel.pricingOptions[index].label)
+                ForEach(0..<pricingOptions.count, id: \.self) { index in
+                    Text(pricingOptions[index].label)
                 }
             }
             .pickerStyle(.wheel)

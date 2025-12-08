@@ -16,22 +16,10 @@ class HomeViewModel {
     var showSuccessAlert = false
     var selectedInstallmentIndex = 0
     var currentCourseIndex = 0
+    
     var completedSubjectIDs: Set<UUID> = []
-
-    func toggleSubjectCompletion(_ subjectID: UUID) {
-        if completedSubjectIDs.contains(subjectID) {
-            completedSubjectIDs.remove(subjectID)
-        } else {
-            completedSubjectIDs.insert(subjectID)
-        }
-    }
-
-    func isSubjectCompleted(_ subjectID: UUID) -> Bool {
-        return completedSubjectIDs.contains(subjectID)
-    }
     
     let courses = MockData.courses
-    let pricingOptions = MockData.pricingOptions
     
     var currentCourse: Course {
         return courses[currentCourseIndex]
@@ -39,6 +27,10 @@ class HomeViewModel {
     
     var isCurrentCourseEnrolled: Bool {
         return enrolledCourseIDs.contains(currentCourse.id)
+    }
+    
+    var currentCoursePricingOptions: [InstallmentOption] {
+        return currentCourse.pricingOptions
     }
     
     func openPaymentSheet(for course: Course) {
@@ -51,7 +43,6 @@ class HomeViewModel {
         enrolledCourseIDs.insert(course.id)
         showPaymentSheet = false
         
-        // Delay para mostrar o alert após fechar o sheet
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.showSuccessAlert = true
         }
@@ -59,5 +50,17 @@ class HomeViewModel {
     
     func getEnrolledCourses() -> [Course] {
         return courses.filter { enrolledCourseIDs.contains($0.id) }
+    }
+    
+    func toggleSubjectCompletion(_ subjectID: UUID) {
+        if completedSubjectIDs.contains(subjectID) {
+            completedSubjectIDs.remove(subjectID)
+        } else {
+            completedSubjectIDs.insert(subjectID)
+        }
+    }
+    
+    func isSubjectCompleted(_ subjectID: UUID) -> Bool {
+        return completedSubjectIDs.contains(subjectID)
     }
 }

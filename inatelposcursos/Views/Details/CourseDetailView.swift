@@ -34,6 +34,14 @@ struct CourseDetailView: View {
                         .multilineTextAlignment(.center)
                         .frame(maxWidth: .infinity)
                     
+                    HStack {
+                        Spacer()
+                        Label("\(course.workload) horas", systemImage: "clock.fill")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                        Spacer()
+                    }
+                    
                     Divider()
                     
                     Text("Sobre o Curso")
@@ -49,16 +57,23 @@ struct CourseDetailView: View {
                         Divider()
                             .padding(.top, 10)
                         
-                        Text("Disciplinas")
-                            .font(.title2)
-                            .bold()
-                            .padding(.bottom, 5)
+                        HStack {
+                            Text("Disciplinas")
+                                .font(.title2)
+                                .bold()
+                            
+                            Spacer()
+                            
+                            Text("\(course.subjects.count) matérias")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                        }
+                        .padding(.bottom, 5)
                     }
                 }
                 .padding()
             }
             
-            // Subject List
             if !course.subjects.isEmpty {
                 SubjectListView(subjects: course.subjects, viewModel: viewModel, appBlue: appBlue)
             }
