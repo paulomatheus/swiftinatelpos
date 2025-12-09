@@ -48,3 +48,11 @@ struct AddUserSheetView: View {
         }
     }
 }
+
+
+#Preview {
+    AddUserSheetView(
+        authViewModel: AuthViewModel(),
+        appBlue: Color(red: 0/255, green: 102/255, blue: 204/255)
+    )
+}

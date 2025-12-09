@@ -16,14 +16,14 @@ struct CourseLogoView: View {
         ZStack {
             Circle()
                 .fill(color)
-                .frame(width: size * 1.3, height: size * 1.3)
+                .frame(width: size * 2, height: size * 2.0)
             
             if let logoName = course.logoName {
                 Image(logoName)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(height: size)
-                    .padding(size * 0.15)
+                    .padding(size * 0.5)
             } else {
                 Image(systemName: "laptopcomputer.and.iphone")
                     .resizable()
@@ -32,5 +32,37 @@ struct CourseLogoView: View {
                     .foregroundColor(.white)
             }
         }
+    }
+}
+
+#Preview("Com Logo") {
+    VStack(spacing: 30) {
+        CourseLogoView(
+            course: MockData.courses[1],
+            size: 80,
+            color: Color(red: 35/255, green: 130/255, blue: 161/255)
+        )
+        
+        CourseLogoView(
+            course: MockData.courses[1],
+            size: 120,
+            color: Color(red: 35/255, green: 130/255, blue: 161/255)
+        )
+    }
+}
+
+#Preview("Sem Logo (SF Symbol)") {
+    VStack(spacing: 30) {
+        CourseLogoView(
+            course: MockData.courses[0],
+            size: 80,
+            color: Color(red: 35/255, green: 130/255, blue: 161/255)
+        )
+        
+        CourseLogoView(
+            course: MockData.courses[0],
+            size: 120,
+            color: Color(red: 35/255, green: 130/255, blue: 161/255)
+        )
     }
 }

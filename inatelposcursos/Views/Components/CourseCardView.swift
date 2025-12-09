@@ -16,7 +16,7 @@ struct CourseCardView: View {
     
     var body: some View {
         VStack(spacing: 20) {
-            CourseLogoView(course: course, size: 80, color: appBlue)
+            CourseLogoView(course: course, size: 80, color: logoBlue)
             
             Text(course.name)
                 .font(.title3)
@@ -43,4 +43,13 @@ struct CourseCardView: View {
         .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
         .padding()
     }
+}
+
+#Preview {
+    CourseCardView(
+        course: MockData.courses[0],
+        appBlue: Color(red: 0/255, green: 102/255, blue: 204/255),
+        logoBlue: Color(red: 35/255, green: 130/255, blue: 161/255)
+    )
+    .frame(height: 400)
 }

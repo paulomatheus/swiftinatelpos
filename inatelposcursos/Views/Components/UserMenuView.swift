@@ -65,3 +65,24 @@ struct UserMenuView: View {
         }
     }
 }
+
+#Preview {
+    NavigationStack {
+        VStack {
+            Spacer()
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                UserMenuView(
+                    authViewModel: {
+                        let vm = AuthViewModel()
+                        vm.currentUser = vm.users[0]
+                        vm.isAuthenticated = true
+                        return vm
+                    }(),
+                    appBlue: Color(red: 0/255, green: 102/255, blue: 204/255)
+                )
+            }
+        }
+    }
+}

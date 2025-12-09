@@ -74,3 +74,11 @@ struct HomeView: View {
         }
     }
 }
+
+#Preview {
+    HomeView(
+        viewModel: HomeViewModel(),
+        appBlue: Color(red: 0/255, green: 102/255, blue: 204/255),
+        logoBlue: Color(red: 35/255, green: 130/255, blue: 161/255)
+    )
+}

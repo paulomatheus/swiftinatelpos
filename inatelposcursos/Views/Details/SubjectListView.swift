@@ -39,3 +39,11 @@ struct SubjectListView: View {
         .listStyle(.plain)
     }
 }
+
+#Preview {
+    SubjectListView(
+        subjects: MockData.courses[0].subjects,
+        viewModel: HomeViewModel(),
+        appBlue: Color(red: 0/255, green: 102/255, blue: 204/255)
+    )
+}

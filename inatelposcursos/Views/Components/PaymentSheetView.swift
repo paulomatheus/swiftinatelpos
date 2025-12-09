@@ -48,3 +48,15 @@ struct PaymentSheetView: View {
         .presentationDetents([.height(400)])
     }
 }
+
+#Preview {
+    PaymentSheetView(
+        viewModel: {
+            let vm = HomeViewModel()
+            vm.selectedCourse = MockData.courses[0]
+            vm.showPaymentSheet = true
+            return vm
+        }(),
+        appBlue: Color(red: 0/255, green: 102/255, blue: 204/255)
+    )
+}

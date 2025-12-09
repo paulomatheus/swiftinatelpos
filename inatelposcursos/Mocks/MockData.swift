@@ -250,13 +250,13 @@ struct MockData {
             logoName: nil
         ),
         Course(
-            name: "ENGENHARIA DE SOFTWARE",
+            name: "ENGENHARIA DE SOFTWARE APLICADA",
             description: "Arquitetura, padrões e desenvolvimento ágil.",
             detailedDescription: "Aprofunde-se em metodologias ágeis, arquitetura de microsserviços e padrões de projeto para criar softwares robustos e escaláveis.",
             subjects: softwareEngineeringSubjects,
             workload: 368,
             pricingOptions: standardPricing,
-            logoName: "logo_engenharia-de-software-online"
+            logoName: "logo_engenharia-de-software-online-removebg-preview"
         ),
         Course(
             name: "MBA EM GESTÃO EM NEGÓCIOS TECNOLÓGICOS",
@@ -265,7 +265,7 @@ struct MockData {
             subjects: mbaTechBusinessSubjects,
             workload: 368,
             pricingOptions: standardPricing,
-            logoName: "logo_mba-gestao-empresarial-em-ambiente-tecnologico-online"
+            logoName: "logo_mba-gestao-empresarial-em-ambiente-tecnologico-online-removebg-preview"
         ),
         Course(
             name: "TECNOLOGIAS EMERGENTES PARA A INDÚSTRIA",
@@ -274,7 +274,7 @@ struct MockData {
             subjects: emergingTechIndustrySubjects,
             workload: 368,
             pricingOptions: standardPricing,
-            logoName: "logo_tecnologias-emergentes-para-a-industria-online"
+            logoName: "logo_tecnologias-emergentes-para-a-industria-online-removebg-preview"
         ),
         Course(
             name: "ENGENHARIA DE REDES E SISTEMAS DE TELECOMUNICAÇÕES",
@@ -283,7 +283,7 @@ struct MockData {
             subjects: networkEngineeringSubjects,
             workload: 368,
             pricingOptions: standardPricing,
-            logoName: "logo_engenharia-de-redes-e-sistemas-de-telecomunicacoes-online"
+            logoName: "logo_engenharia-de-redes-e-sistemas-de-telecomunicacoes-online-removebg-preview"
         ),
         Course(
             name: "REDES COMUNICAÇÕES MÓVEIS 5G",
@@ -292,7 +292,7 @@ struct MockData {
             subjects: fiveGSubjects,
             workload: 438,
             pricingOptions: fiveGPricing,
-            logoName: "logo_redes-5g-online"
+            logoName: "logo_redes-5g-online-removebg-preview"
         ),
         Course(
             name: "TRANSFORMAÇÃO DIGITAL",
@@ -301,7 +301,7 @@ struct MockData {
             subjects: digitalTransformationSubjects,
             workload: 360,
             pricingOptions: digitalTransformationPricing,
-            logoName: "logo_transformacao-digital-online"
+            logoName: "logo_transformacao-digital-online-removebg-preview"
         ),
         Course(
             name: "TECNOLOGIAS DISRUPTIVAS E GESTÃO EM SAÚDE",
@@ -310,7 +310,7 @@ struct MockData {
             subjects: disruptiveTechHealthSubjects,
             workload: 360,
             pricingOptions: standardPricing,
-            logoName: "logo_tecnologias-disruptivas-e-gestao-em-saude-hibrido"
+            logoName: "logo_tecnologias-disruptivas-e-gestao-em-saude-hibrido-removebg-preview"
         )
     ]
 }

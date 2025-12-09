@@ -79,3 +79,33 @@ struct CourseDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 }
+
+#Preview("Com Disciplinas") {
+    NavigationStack {
+        CourseDetailView(
+            course: MockData.courses[0],
+            viewModel: HomeViewModel(),
+            appBlue: Color(red: 0/255, green: 102/255, blue: 204/255),
+            logoBlue: Color(red: 35/255, green: 130/255, blue: 161/255)
+        )
+    }
+}
+
+#Preview("Sem Disciplinas") {
+    NavigationStack {
+        CourseDetailView(
+            course: Course(
+                name: "CURSO TESTE",
+                description: "Sem disciplinas",
+                detailedDescription: "Este é um curso de teste sem disciplinas cadastradas.",
+                subjects: [],
+                workload: 368,
+                pricingOptions: MockData.standardPricing,
+                logoName: nil
+            ),
+            viewModel: HomeViewModel(),
+            appBlue: Color(red: 0/255, green: 102/255, blue: 204/255),
+            logoBlue: Color(red: 35/255, green: 130/255, blue: 161/255)
+        )
+    }
+}
